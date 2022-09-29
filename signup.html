@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <h1>Signup</h1>
+    <p id="error-msg"></p>
+    <form action="/" method="POST" id="signup-form">
+      <div class="form-input">
+        <label for="email"> Enter your Email </label>
+        <input type="email" id="email" name="email" />
+      </div>
+      <div class="form-input">
+        <label for="password"> Enter your Password </label>
+        <input type="password" id="password" name="password" />
+      </div>
+      <div class="form-input">
+        <label for="confirm-password"> Confirm your Password </label>
+        <input type="password" id="confirm-password" name="confirm-password" />
+      </div>
+      <div class="form-input">
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+    <script>
+      const email = document.querySelector("#email");
+      const password = document.querySelector("#password");
+      const confirmPassword = document.querySelector("#confirm-password");
+      const form = document.querySelector("#signup-form");
+      const errorMsg = document.querySelector("#error-msg");
+
+      form.addEventListener("submit", (formEvent) => {
+        let message = [];
+        let signupEmail = email.value;
+        let signupPassword = password.value;
+        let signupConfirmPassword = confirmPassword.value;
+
+        if (signupEmail == "" || signupEmail == null) {
+          message.push("Enter Valid Email Id");
+        }
+
+        if (signupPassword.length < 6 || signupConfirmPassword.length < 6) {
+          message.push("Password should be more than 6 characters");
+        }
+        if (
+          signupPassword === "password" ||
+          signupConfirmPassword === "password"
+        ) {
+          message.push("Password cannot set to be password");
+        }
+        if (signupPassword != signupConfirmPassword) {
+          message.push("Password does not match");
+        }
+        if (message.length > 0) {
+          formEvent.preventDefault();
+          errorMsg.textContent = message.join(",");
+        }
+        console.log(signupEmail);
+        console.log(signupPassword);
+        console.log(signupConfirmPassword);
+        console.log(message);
+      });
+    </script>
+  </body>
+</html>
